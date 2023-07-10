@@ -11,6 +11,9 @@ def notebook_wrapper(logger, file_name=''):
     Args:
         logger (CustomLogging): Logging.
         file_mane (str, optional): File name.
+
+    Returns:
+        (str): Return python code as string. 
     """
     ipynb_ext = 'ipynb'
     py_ext = 'py'
@@ -35,9 +38,9 @@ def notebook_wrapper(logger, file_name=''):
             if code[-1] != '\n':
                 py_code = py_code + '\n'
 
-    with open(fr'notebooks/{file_name}.{py_ext}', 'w', encoding='utf-8') as file:
-        file.write(py_code)
-        logger.info(f'File {file_name}.{py_ext} created.')
+    logger.info(f'File {file_name}.{py_ext} created.')
+
+    return py_code
 
 
 class CustomLogging:
