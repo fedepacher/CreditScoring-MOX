@@ -1,8 +1,8 @@
 stages:
   prepare:
     cmd: python src/prepare_data.py
-    outs:
-      - dataset/data_prueba_limpia.csv
+    # outs:
+    #   - dataset/data_prueba_limpia.csv
   training:
     cmd: python src/train.py
     deps:
