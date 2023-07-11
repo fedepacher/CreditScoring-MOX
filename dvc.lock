@@ -1,0 +1,21 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare_data.py
+    outs:
+    - path: dataset/data_prueba_limpia.csv
+      hash: md5
+      md5: c3b7a6352cf7e2ff8b8b7227f413ca6e
+      size: 423
+  training:
+    cmd: python src/train.py
+    deps:
+    - path: dataset/data_prueba_limpia.csv
+      hash: md5
+      md5: c3b7a6352cf7e2ff8b8b7227f413ca6e
+      size: 423
+    outs:
+    - path: model/model.pkl
+      hash: md5
+      md5: 533a509fe3ea65b383fcf53553a2be56
+      size: 170163
