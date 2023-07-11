@@ -160,5 +160,5 @@ cython_debug/
 #.idea/
 trash/
 # GCP Key
-mox-storage-project-test-847f9685b9dd.json
+*.json
 report.txt
