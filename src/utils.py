@@ -3,6 +3,7 @@ import codecs
 import json
 import sys
 import logging
+from sklearn.pipeline import Pipeline
 
 
 def notebook_wrapper(logger, file_name=''):
