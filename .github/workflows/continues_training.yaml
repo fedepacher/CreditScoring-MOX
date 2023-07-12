@@ -14,10 +14,15 @@ on:
 jobs:
   continuous-training:
     runs-on: ubuntu-latest
+    permissions: # Set permissions to do git push
+      contents: write
+      pull-requests: write 
+      issues: read
+      packages: none
     steps:
-      - name: Checkout repository
+      - name: Checkout repository # Clone the repository
         uses: actions/checkout@v3
-      - name: Train model
+      - name: Train model # Download model from GCP store
         env:
           SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
         run: |
@@ -26,19 +31,19 @@ jobs:
           source venv/bin/activate
           pip install -r src/requirements.txt
           export GOOGLE_APPLICATION_CREDENTIALS=$(python utilities/setter.py)
-          dvc pull model/model.pkl.dvc -r model-track
+          dvc pull model/model.pkl -r model-track
           dvc unprotect model/model.pkl
           dvc repro -f
           echo "Training Completed"
           dvc add model/model.pkl -r model-track --to-remote
-          dvc push model/model.pkl.dvc -r model-track
-      - name: Commit .dvc file changes
+          dvc push model/model.pkl -r model-track
+      - name: Commit .dvc file changes # Create a commit of the new model
         run: |
           git config --local user.email "fede_pacher@hotmail.com"
           git config --local user.name "github-actions[bot]"
           git add model/model.pkl.dvc
           git commit -m "feat(#27) updating model serialization"
-      - uses: ad-m/github-push-action@master
+      - uses: ad-m/github-push-action@master # Create git push
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             branch: ${{ github.ref }}
