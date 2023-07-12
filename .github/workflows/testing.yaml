@@ -18,10 +18,14 @@ jobs:
           pip install dvc-gs
           pip install -r testing/requirements.txt
       - name: Pull data from DVC
-        run: dvc pull
+        run: |
+          export GOOGLE_APPLICATION_CREDENTIALS=$(python utilities/setter.py)
+          dvc pull
       
       - name: Run the pipeline with DVC
         run: dvc repro
 
       - name: Push the outcomes to DVC remote storage 
         run: dvc push
+
+
