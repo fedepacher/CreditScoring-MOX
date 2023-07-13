@@ -1,8 +1,8 @@
-name: Continues Training
+name: Continuous Training
 on:
-  push:
-    branches:
-      - continues-training-branch
+  # push:
+  #   branches:
+  #     - continues-training-branch
   schedule: # Scheduled trigger event, every 6hs
     - cron: '0 */6 * * *'
   workflow_dispatch: # Manual trigger event
@@ -10,7 +10,7 @@ on:
       reason:
         description: Why to run  this?
         required: false
-        default: running Continues Training
+        default: running Continuous Training
 jobs:
   continuous-training:
     runs-on: ubuntu-latest
