@@ -1,4 +1,4 @@
-name: Continuous Integration/Continuous Deployment
+name: Continuous Integration - Continuous Deployment
 on:
   push:
      branches:
@@ -50,7 +50,7 @@ jobs:
         with:
           service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
           project_id: ${{ secrets.PROJECT_ID }}
-      - name: Build and Push
+      - name: Build and Push Docker
         run: |
           docker build . -t $REGISTRY_NAME:$GITHUB_SHA
           gcloud auth configure-docker -q
