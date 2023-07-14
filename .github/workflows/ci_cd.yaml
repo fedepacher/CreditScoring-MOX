@@ -1,19 +1,19 @@
 name: Continuous Integration - Continuous Deployment
-on:
-  push:
-     branches:
-      - main 
-  workflow_run: # Every time that Continuous Training workflow run, trigger this one
-    workflows: ["Continuous Training"]
-    branches: [main]  # From main 
-    types:  # When finish the previous workflow
-      - completed
-  workflow_dispatch:
-    inputs:
-      reason:
-        description: Why to run this?
-        required: false
-        default: running CI/CD
+on: [push]
+  # push:
+  #    branches:
+  #     - main 
+  # workflow_run: # Every time that Continuous Training workflow run, trigger this one
+  #   workflows: ["Continuous Training"]
+  #   branches: [main]  # From main 
+  #   types:  # When finish the previous workflow
+  #     - completed
+  # workflow_dispatch:
+  #   inputs:
+  #     reason:
+  #       description: Why to run this?
+  #       required: false
+  #       default: running CI/CD
 jobs:
   ci_cd:
     runs-on: ubuntu-latest
@@ -25,9 +25,11 @@ jobs:
       packages: none
     env:
       REGISTRY_NAME: ${{ secrets.REGISTRY_NAME }}
+      REGISTRY_NAME_FRONT: ${{ secrets.REGISTRY_NAME_FRONT }}
       REGION: ${{ secrets.REGION }}
       PROJECT_ID: ${{ secrets.PROJECT_ID }}
       SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
+      SERVICE_NAME_FRONT: ${{ secrets.SERVICE_NAME_FRONT }}
       SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
     steps:
       - name: Checkout Repoository
@@ -50,11 +52,17 @@ jobs:
         with:
           service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
           project_id: ${{ secrets.PROJECT_ID }}
+      - name: Configure Docker
+        run: |
+          gcloud auth configure-docker -q
       - name: Build and Push Docker
         run: |
           docker build . -t $REGISTRY_NAME:$GITHUB_SHA
-          gcloud auth configure-docker -q
+          docker build frontend/. -t $REGISTRY_NAME_FRONT:$GITHUB_SHA
+
           sudo -u $USER docker push $REGISTRY_NAME:$GITHUB_SHA
+          sudo -u $USER docker push $REGISTRY_NAME_FRONT:$GITHUB_SHA
       - name: Deploy to Cloud Run
         run: |
-          gcloud run services update $SERVICE_NAME --region=$REGION --image=$REGISTRY_NAME:$GITHUB_SHA
+          gcloud run deploy $SERVICE_NAME --region=$REGION --image=$REGISTRY_NAME:$GITHUB_SHA
+          gcloud run deploy $SERVICE_NAME_FRONT --region=$REGION --image=$REGISTRY_NAME_FRONT:$GITHUB_SHA
