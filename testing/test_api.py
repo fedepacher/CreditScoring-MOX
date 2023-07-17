@@ -6,23 +6,33 @@ client = TestClient(app)
 
 def test_null_prediction():
     response = client.post('/v1/prediction', json={
-                                                   "ingreso": 0,
-                                                   "antiguedad_laboral_meses": 0,
-                                                   "trabajos_ultimos_5": 0,
-                                                   "edad": 0,
-                                                   "crecimiento_ingreso": 0
+                                                   "ingreso": 45000,
+                                                   "antiguedad_laboral_meses": 50,
+                                                   "tiempo_desempleado": 0,
+                                                   "trabajos_ultimos_5": 1,
+                                                   "semanasCotizadas": 1000,
+                                                   "edad": 32,
+                                                   "crecimiento_ingreso": 265.38,
+                                                   "crecimiento_gral": 0,
+                                                   "ENIGH": 9
                                                    })
     assert response.status_code == 200
-    assert response.json()['scoring'] >= 0
+    assert response.json()['scoring'] == 678.17
+    assert response.json()['cluster'] == 0
 
 
 def test_random_prediction():
     response = client.post('/v1/prediction', json={
-                                                   "ingreso": 500,
-                                                   "antiguedad_laboral_meses": 5,
-                                                   "trabajos_ultimos_5": 5,
-                                                   "edad": 56,
-                                                   "crecimiento_ingreso": 555
+                                                   "ingreso": 0,
+                                                   "antiguedad_laboral_meses": 0,
+                                                   "tiempo_desempleado": 13,
+                                                   "trabajos_ultimos_5": 2,
+                                                   "semanasCotizadas": 198,
+                                                   "edad": 29,
+                                                   "crecimiento_ingreso": 0,
+                                                   "crecimiento_gral": 2,
+                                                   "ENIGH": -105
                                                    })
     assert response.status_code == 200
-    assert response.json()['scoring'] >= 0
+    assert response.json()['scoring'] == 433.33
+    assert response.json()['cluster'] == 1

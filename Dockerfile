@@ -8,7 +8,11 @@ RUN pip install -U pip && pip install -r requirements.txt
 
 COPY api/ ./api
 
-COPY model/model.pkl ./model/model.pkl
+COPY model/model_reg.pkl ./model/model_reg.pkl
+
+COPY model/model_clf.pkl ./model/model_clf.pkl
+
+COPY model/model_scaler.pkl ./model/model_scaler.pkl
 
 COPY initializer.sh .
 

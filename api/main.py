@@ -17,4 +17,5 @@ def make_model_prediction(request: PredictionRequest):
     Returns:
         JSON: JSON format scoring predicted output.
     """
-    return PredictionResponse(scoring=get_prediction(request))
+    score_cliente, cluster_cliente = get_prediction(request)
+    return PredictionResponse(scoring=round(score_cliente*1000, 2), cluster=cluster_cliente)

@@ -3,18 +3,23 @@ from .models import PredictionRequest
 from .utils import get_model, transform_to_dataframe
 
 
-model = get_model()
+model_reg = get_model('model_reg')
+model_clf = get_model('model_clf')
+scaler = get_model('model_scaler')
 
-
+# Función para clasificar a los clientes
 def get_prediction(request: PredictionRequest):
-    """Get the scoring prediction based on request.
+    """Get the scoring and cluster prediction based on request.
 
     Args:
         request (PredictionRequest): Objet to be predicted.
 
     Returns:
-        float: Scoring predicted.
+        tuple: scoring and cluster predicted
     """
-    data_to_predict = transform_to_dataframe(request)
-    prediction = model.predict(data_to_predict)[0]
-    return max(0, prediction)
+    client = transform_to_dataframe(request)
+    cliente_scaled = scaler.transform(client)
+    puntuacion_credito = model_reg.predict(cliente_scaled)[0]
+    cluster_predicho = model_clf.predict(cliente_scaled)[0]
+
+    return puntuacion_credito, cluster_predicho

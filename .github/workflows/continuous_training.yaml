@@ -1,16 +1,16 @@
 name: Continuous Training
-on:
+on: [push]
   # push:
   #   branches:
-  #     - continues-training-branch
-  schedule: # Scheduled trigger event, every 6hs
-    - cron: '0 */6 * * *'
-  workflow_dispatch: # Manual trigger event
-    inputs:
-      reason:
-        description: Why to run  this?
-        required: false
-        default: running Continuous Training
+  #     - etl-devel-branch
+  # schedule: # Scheduled trigger event, every 6hs
+  #   - cron: '0 */6 * * *'
+  # workflow_dispatch: # Manual trigger event
+  #   inputs:
+  #     reason:
+  #       description: Why to run  this?
+  #       required: false
+  #       default: running Continuous Training
 jobs:
   continuous-training:
     runs-on: ubuntu-latest
@@ -31,17 +31,27 @@ jobs:
           source venv/bin/activate
           pip install -r src/requirements.txt
           export GOOGLE_APPLICATION_CREDENTIALS=$(python utilities/setter.py)
-          dvc pull model/model.pkl -r model-track
-          dvc unprotect model/model.pkl
+          dvc pull model/model_reg.pkl -r model-track
+          dvc pull model/model_clf.pkl -r model-track
+          dvc pull model/model_scaler.pkl -r model-track
+          dvc unprotect model/model_reg.pkl
+          dvc unprotect model/model_clf.pkl
+          dvc unprotect model/model_scaler.pkl
           dvc repro -f
           echo "Training Completed"
-          dvc add model/model.pkl -r model-track --to-remote
-          dvc push model/model.pkl -r model-track
+          dvc add model/model_reg.pkl -r model-track --to-remote
+          dvc add model/model_clf.pkl -r model-track --to-remote
+          dvc add model/model_scaler.pkl -r model-track --to-remote
+          dvc push model/model_reg.pkl -r model-track
+          dvc push model/model_clf.pkl -r model-track
+          dvc push model/model_scaler.pkl -r model-track
       - name: Commit .dvc file changes # Create a commit of the new model
         run: |
           git config --local user.email "fede_pacher@hotmail.com"
           git config --local user.name "github-actions[bot]"
-          git add model/model.pkl.dvc
+          git add model/model_reg.pkl.dvc
+          git add model/model_clf.pkl.dvc
+          git add model/model_scaler.pkl.dvc
           git commit -m "feat(#27) updating model serialization"
       - uses: ad-m/github-push-action@master # Create git push
         with:

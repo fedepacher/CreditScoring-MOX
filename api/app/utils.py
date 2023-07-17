@@ -7,13 +7,16 @@ from pydantic import BaseModel
 from pandas import DataFrame
 
 
-def get_model() -> Pipeline:
+def get_model(filenema='') -> Pipeline:
     """Get the ML model from google storage.
+
+    Args:
+        filenema (str): Filename.
 
     Returns:
         Pipeline: Return the model pipeline.
     """
-    model_path = os.environ.get('MODEL_PATH','model/model.pkl')
+    model_path = os.environ.get('MODEL_PATH', f'model/{filenema}.pkl')
     with open(model_path,'rb') as model_file:
         model = load(BytesIO(model_file.read()))
     return model
