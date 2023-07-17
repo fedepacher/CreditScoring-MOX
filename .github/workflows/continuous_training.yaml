@@ -34,9 +34,13 @@ jobs:
           dvc pull model/model_reg.pkl -r model-track
           dvc pull model/model_clf.pkl -r model-track
           dvc pull model/model_scaler.pkl -r model-track
+          dvc pull dataset/enigh.csv -r dataset-track
+          dvc pull dataset/itaee_gral_2023.csv -r dataset-track
           dvc unprotect model/model_reg.pkl
           dvc unprotect model/model_clf.pkl
           dvc unprotect model/model_scaler.pkl
+          dvc unprotect dataset/enigh.csv
+          dvc unprotect dataset/itaee_gral_2023.csv
           dvc repro -f
           echo "Training Completed"
           dvc add model/model_reg.pkl -r model-track --to-remote
