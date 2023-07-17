@@ -16,7 +16,7 @@ variable = {
 			"edad": 32,
 			"crecimiento_ingreso": 265.38,
 			"crecimiento_gral": 0,
-			"enigh": 9
+			"ENIGH": 9
             }
 
 def post():
@@ -44,7 +44,7 @@ def main():
 	variable["edad"] = age
 	variable["crecimiento_ingreso"] = income_growth
 	variable["crecimiento_gral"] = gral_growth
-	variable["enigh"] = enigh
+	variable["ENIGH"] = enigh
 	if st.button("Try"):
 		results = post()
 		st.write(results)
