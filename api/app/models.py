@@ -16,7 +16,7 @@ class PredictionRequest(BaseModel):
     edad: int
     crecimiento_ingreso: float
     crecimiento_gral: float
-    enigh: float
+    ENIGH: float
 
 
 class PredictionResponse(BaseModel):
