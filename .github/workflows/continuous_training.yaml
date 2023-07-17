@@ -1,16 +1,16 @@
 name: Continuous Training
-on: [push]
-  # push:
-  #   branches:
-  #     - etl-devel-branch
-  # schedule: # Scheduled trigger event, every 6hs
-  #   - cron: '0 */6 * * *'
-  # workflow_dispatch: # Manual trigger event
-  #   inputs:
-  #     reason:
-  #       description: Why to run  this?
-  #       required: false
-  #       default: running Continuous Training
+on: 
+  push:
+    branches:
+      - main
+  schedule: # Scheduled trigger event, every 6hs
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Manual trigger event
+    inputs:
+      reason:
+        description: Why to run  this?
+        required: false
+        default: running Continuous Training
 jobs:
   continuous-training:
     runs-on: ubuntu-latest
