@@ -1,16 +1,18 @@
 schema: '2.0'
 stages:
   prepare:
-    cmd: python src/prepare_data.py
+    cmd: python src/prepare_data.py -f 'etl_process'
+    deps:
+    - path: dataset/enigh.csv
+      hash: md5
+      md5: e6eac7f760889f412b23040e17ebc457
+      size: 2656
+    - path: dataset/itaee_gral_2023.csv
+      hash: md5
+      md5: 1a356b2462f95e786cdb647d337adc2f
+      size: 8265
     outs:
     - path: dataset/data_prueba_limpia.csv
       hash: md5
-      md5: c3b7a6352cf7e2ff8b8b7227f413ca6e
-      size: 423
-  training:
-    cmd: python src/train.py
-    deps:
-    - path: dataset/data_prueba_limpia.csv
-      hash: md5
-      md5: c3b7a6352cf7e2ff8b8b7227f413ca6e
-      size: 423
+      md5: 3025a6a33f72e2272ec474f107b24036
+      size: 2303273

@@ -1,5 +1,5 @@
 name: Continuous Integration - Continuous Deployment
-on:
+on: 
   push:
      branches:
       - main 
@@ -41,7 +41,9 @@ jobs:
           source venv/bin/activate
           pip install dvc-gs
           export GOOGLE_APPLICATION_CREDENTIALS=$(python utilities/setter.py)
-          dvc pull model/model.pkl -r model-track
+          dvc pull model/model_reg.pkl -r model-track
+          dvc pull model/model_clf.pkl -r model-track
+          dvc pull model/model_scaler.pkl -r model-track
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v0

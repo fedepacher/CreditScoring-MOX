@@ -10,9 +10,13 @@ class PredictionRequest(BaseModel):
     """
     ingreso: float
     antiguedad_laboral_meses: int
+    tiempo_desempleado: int
     trabajos_ultimos_5: int
+    semanasCotizadas: int
     edad: int
     crecimiento_ingreso: float
+    crecimiento_gral: float
+    ENIGH: float
 
 
 class PredictionResponse(BaseModel):
@@ -22,3 +26,4 @@ class PredictionResponse(BaseModel):
         BaseModel (BaseModel): JSON element response.
     """
     scoring: float
+    cluster: int
