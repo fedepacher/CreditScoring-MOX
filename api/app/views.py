@@ -31,7 +31,7 @@ def get_prediction(logging, request: PredictionRequest):
     client = transform_to_dataframe(logging=logging, class_model=request)
     try:
         cliente_scaled = scaler.transform(client)
-        logging.info('Loaded scaler')
+        logging.info('Dataframe scaled correctly')
     except Exception as err:
         logging.error('Error getting data: ' + str(err))
     puntuacion_credito = model_reg.predict(cliente_scaled)[0]

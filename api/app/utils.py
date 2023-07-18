@@ -20,11 +20,13 @@ def get_model(logging, filenema=''):
     logging.info('Get model')
     try:
         model_path = os.environ.get('MODEL_PATH', f'model/{filenema}.pkl')
+        logging.info(f'Path {model_path} loaded')
     except Exception as err:
         logging.error('Error getting data: ' + str(err))
     try:
         with open(model_path,'rb') as model_file:
             model = load(BytesIO(model_file.read()))
+            logging.info('Model file loaded')
     except Exception as err:
         logging.error('Error getting data: ' + str(err))
     return model
@@ -43,6 +45,7 @@ def transform_to_dataframe(logging, class_model: BaseModel) -> DataFrame:
     try:
         transition_dictionary = {key:[value] for key, value in class_model.model_dump().items()}
         data_frame = DataFrame(transition_dictionary)
+        logging.info('Dataframe loaded')
     except Exception as err:
         logging.error('Error getting data: ' + str(err))
     return data_frame
