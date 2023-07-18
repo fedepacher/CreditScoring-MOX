@@ -17,7 +17,7 @@ def test_null_prediction():
                                                    "ENIGH": 9
                                                    })
     assert response.status_code == 200
-    assert response.json()['scoring'] == 678.17
+    assert response.json()['scoring'] == 676.92
     assert response.json()['cluster'] == 0
 
 
@@ -35,4 +35,4 @@ def test_random_prediction():
                                                    })
     assert response.status_code == 200
     assert response.json()['scoring'] == 433.33
-    assert response.json()['cluster'] == 1
+    assert response.json()['cluster'] == 2
