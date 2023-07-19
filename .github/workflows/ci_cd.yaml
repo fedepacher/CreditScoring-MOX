@@ -44,6 +44,8 @@ jobs:
           dvc pull model/model_reg.pkl -r model-track
           dvc pull model/model_clf.pkl -r model-track
           dvc pull model/model_scaler.pkl -r model-track
+          dvc pull dataset/enigh.csv -r dataset-track
+          dvc pull dataset/itaee_gral_2023.csv -r dataset-track
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v0
