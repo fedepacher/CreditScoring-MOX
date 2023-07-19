@@ -6,5 +6,3 @@ gunicorn
 joblib
 pydantic
 numpy
-dvc
-dvc-gs
