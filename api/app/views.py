@@ -17,7 +17,6 @@ def get_models(logging=''):
     model_clf = get_model(logging, filenema='model_clf')
 
 
-# Función para clasificar a los clientes
 def get_prediction(logging, request: IncomeRequest):
     """Get the scoring and cluster prediction based on request.
 

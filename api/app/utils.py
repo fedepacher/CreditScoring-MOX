@@ -7,15 +7,14 @@ from joblib import load
 from pydantic import BaseModel
 from pandas import DataFrame
 from sklearn.decomposition import PCA
-from dvc import api
-from io import StringIO
+
 
 
 def get_model(logging, filenema=''):
     """Get the ML model from google storage.
 
     Args:
-        logging (loggin): Logging format.
+        logging (loggin): Loggin format.
         filenema (str): Filename.
 
     Returns:
@@ -46,10 +45,8 @@ def convert_input_data(logging, request: BaseModel):
     Returns:
         Dataframe: Dataframe for the ML model.
     """
-    df_path = api.read('./dataset/enigh.csv', remote='dataset-track')
-    tabla_enigh = pd.read_csv(StringIO(df_path))
-    df_path = api.read('./dataset/itaee_gral_2023.csv', remote='dataset-track')
-    itaee_gral = pd.read_csv(StringIO(df_path))
+    tabla_enigh = pd.read_csv('./dataset/enigh.csv')
+    itaee_gral = pd.read_csv('./dataset/itaee_gral_2023.csv')
     logging.info(f'Dataframe: {tabla_enigh.head(1)}')
     logging.info(f'Dataframe: {itaee_gral.head(1)}')
     client = transform_to_dataframe(logging=logging, class_model=request)
