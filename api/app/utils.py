@@ -9,7 +9,6 @@ from pandas import DataFrame
 from sklearn.decomposition import PCA
 
 
-
 def get_model(logging, filenema=''):
     """Get the ML model from google storage.
 
