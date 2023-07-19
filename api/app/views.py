@@ -1,6 +1,6 @@
 """API view that gives the predicted elements"""
-from .models import PredictionRequest
-from .utils import get_model, transform_to_dataframe
+from .models import IncomeRequest
+from .utils import get_model, convert_input_data
 
 
 def get_models(logging=''):
@@ -17,18 +17,21 @@ def get_models(logging=''):
     model_clf = get_model(logging, filenema='model_clf')
 
 
-# Función para clasificar a los clientes
-def get_prediction(logging, request: PredictionRequest):
+def get_prediction(logging, request: IncomeRequest):
     """Get the scoring and cluster prediction based on request.
 
     Args:
         logging (loggin): Loggin format.
-        request (PredictionRequest): Objet to be predicted.
+        request (IncomeRequest): Objet to be predicted.
 
     Returns:
         tuple: scoring and cluster predicted
     """
-    client = transform_to_dataframe(logging=logging, class_model=request)
+    try:
+        client = convert_input_data(logging=logging, request=request)
+        logging.info('Dataframe parsed correctly')
+    except Exception as err:
+        logging.error('Error getting data: ' + str(err))
     try:
         cliente_scaled = scaler.transform(client)
         logging.info('Dataframe scaled correctly')

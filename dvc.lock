@@ -16,3 +16,10 @@ stages:
       hash: md5
       md5: 3025a6a33f72e2272ec474f107b24036
       size: 2303273
+  training:
+    cmd: python src/prepare_data.py -f 'models'
+    deps:
+    - path: dataset/data_prueba_limpia.csv
+      hash: md5
+      md5: 3025a6a33f72e2272ec474f107b24036
+      size: 2303273

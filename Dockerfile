@@ -14,6 +14,10 @@ COPY model/model_clf.pkl ./model/model_clf.pkl
 
 COPY model/model_scaler.pkl ./model/model_scaler.pkl
 
+COPY dataset/enigh.csv ./dataset/enigh.csv
+
+COPY dataset/itaee_gral_2023.csv ./dataset/itaee_gral_2023.csv
+
 COPY initializer.sh .
 
 RUN chmod +x initializer.sh

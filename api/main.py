@@ -1,7 +1,7 @@
 """API creation"""
 import logging
 from fastapi import FastAPI
-from .app.models import PredictionResponse, PredictionRequest
+from .app.models import PredictionResponse, IncomeRequest
 from .app.views import get_prediction, get_models
 
 
@@ -14,7 +14,7 @@ get_models(logging=logging)
 
 
 @app.post('/v1/prediction')
-def make_model_prediction(request: PredictionRequest):
+def make_model_prediction(request: IncomeRequest):
     """API call to predict incoming data.
 
     Args:
@@ -23,5 +23,7 @@ def make_model_prediction(request: PredictionRequest):
     Returns:
         JSON: JSON format scoring predicted output.
     """
-    score_cliente, cluster_cliente = get_prediction(logging=logging, request=request)
-    return PredictionResponse(scoring=round(score_cliente*1000, 2), cluster=cluster_cliente)
+    if request.values_checker():
+        score_cliente, cluster_cliente = get_prediction(logging=logging, request=request)
+        return PredictionResponse(scoring=round(score_cliente*1000, 2), cluster=cluster_cliente)
+    return {'Error': f'There are some error in fields {request}.'}
