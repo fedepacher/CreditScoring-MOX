@@ -97,7 +97,6 @@ def main():
 		consult_btn = st.button("Consultar", disabled=st.session_state.get("disabled", False))
 	col1, col2, col3 = st.columns(3)
 	with col2:
-		consult_btn = st.button("Consultar", disabled=st.session_state.get("disabled", False))
 		if consult_btn:
 			results = post()
 			st.markdown(f'<h2 style=\'text-align: center; color: grey;\'>Cluster: {results["cluster"]}</h2>', unsafe_allow_html=True)
