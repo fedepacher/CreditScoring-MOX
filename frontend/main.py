@@ -5,9 +5,9 @@ import requests
 
 LIMIT_LOWER = '300'
 LIMIT_A = '400'
-LIMIT_B = '500'
-LIMIT_C = '600'
-LIMIT_D = '750'
+LIMIT_B = '550'
+LIMIT_C = '650'
+LIMIT_D = '850'
 
 Entities = ['Aguascalientes', 'Baja California', 'Baja California Sur',
 			'Campeche', 'Coahuila de Zaragoza', 'Colima', 'Chiapas', 'Chihuahua',
@@ -100,7 +100,7 @@ def main():
 		if consult_btn:
 			results = post()
 			st.markdown(f'<h2 style=\'text-align: center; color: grey;\'>Cluster: {results["cluster"]}</h2>', unsafe_allow_html=True)
-			value = float(results["scoring"]) * (1/450) - (300/450)
+			value = float(results["scoring"]) * (1/550) - (300/550)
 			var = html_var.replace('value_arg', str(value))
 			# st.write(var)
 			components.html(var,
