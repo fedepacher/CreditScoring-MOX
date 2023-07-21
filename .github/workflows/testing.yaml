@@ -25,4 +25,5 @@ jobs:
           dvc pull model/model_scaler.pkl -r model-track
           dvc pull dataset/enigh.csv -r dataset-track
           dvc pull dataset/itaee_gral_2023.csv -r dataset-track
+          dvc pull dataset/data_prueba_limpia.csv -r dataset-track
           pytest testing/test_api.py

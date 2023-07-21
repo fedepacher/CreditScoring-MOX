@@ -18,6 +18,8 @@ COPY dataset/enigh.csv ./dataset/enigh.csv
 
 COPY dataset/itaee_gral_2023.csv ./dataset/itaee_gral_2023.csv
 
+COPY dataset/data_prueba_limpia.csv ./dataset/data_prueba_limpia.csv
+
 COPY initializer.sh .
 
 RUN chmod +x initializer.sh

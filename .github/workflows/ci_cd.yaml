@@ -1,19 +1,19 @@
 name: Continuous Integration - Continuous Deployment
-on:
-  push:
-     branches:
-      - main 
-  workflow_run: # Every time that Continuous Training workflow run, trigger this one
-    workflows: ["Continuous Training"]
-    branches: [main]  # From main 
-    types:  # When finish the previous workflow
-      - completed
-  workflow_dispatch:
-    inputs:
-      reason:
-        description: Why to run this?
-        required: false
-        default: running CI/CD
+on: [push]
+  # push:
+  #    branches:
+  #     - main 
+  # workflow_run: # Every time that Continuous Training workflow run, trigger this one
+  #   workflows: ["Continuous Training"]
+  #   branches: [main]  # From main 
+  #   types:  # When finish the previous workflow
+  #     - completed
+  # workflow_dispatch:
+  #   inputs:
+  #     reason:
+  #       description: Why to run this?
+  #       required: false
+  #       default: running CI/CD
 jobs:
   ci_cd:
     runs-on: ubuntu-latest
@@ -46,6 +46,7 @@ jobs:
           dvc pull model/model_scaler.pkl -r model-track
           dvc pull dataset/enigh.csv -r dataset-track
           dvc pull dataset/itaee_gral_2023.csv -r dataset-track
+          dvc pull dataset/data_prueba_limpia.csv -r dataset-track
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v0

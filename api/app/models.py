@@ -35,8 +35,8 @@ class IncomeRequest(BaseModel):
         """
         if self.ingreso < 0 or self.antiguedad_laboral_meses < 0 or self.tiempo_desempleado < 0 or \
            self.trabajos_ultimos_5 < 0 or self.semanasCotizadas < 0 or self.edad < 0 or \
-           self.crecimiento_ingreso < 0 or (self.crecimiento_ingreso > 0 and self.ingreso == 0) or \
-           (self.lugar_actual.lower() not in [x.lower() for x in Entities]):
+           (self.lugar_actual.lower() not in [x.lower() for x in Entities]) or \
+           (self.ingreso == 0 and self.crecimiento_ingreso != 0):
             return False
         return True
 
@@ -65,4 +65,4 @@ class PredictionResponse(BaseModel):
         BaseModel (BaseModel): JSON element response.
     """
     scoring: float
-    cluster: int
+    cluster: str

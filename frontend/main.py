@@ -73,7 +73,7 @@ def main():
 	if not isinstance(age, int) or age < 18 or age > 100:
 		st.error("Edad invalida, debe ser mayor a 18 años")
 	income_growth = st.number_input("Crecimiento de Ingreso", value=0.0, step=1.0)
-	if not isinstance(income_growth, float) or income_growth < 0 or (income_growth > 0 and income == 0):
+	if not isinstance(income_growth, float) or (income_growth != 0 and income == 0):
 		st.error("Crecimiento de Ingreso invalido o Ingreso igual a 0")
 	lugar_actual = st.selectbox("Seleccione Entidad Federativa", Entities)
 

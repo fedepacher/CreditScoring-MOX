@@ -46,8 +46,7 @@ def convert_input_data(logging, request: BaseModel):
     """
     tabla_enigh = pd.read_csv('./dataset/enigh.csv')
     itaee_gral = pd.read_csv('./dataset/itaee_gral_2023.csv')
-    logging.info(f'Dataframe: {tabla_enigh.head(1)}')
-    logging.info(f'Dataframe: {itaee_gral.head(1)}')
+    df_data_ml = pd.read_csv('./dataset/data_prueba_limpia.csv')
     client = transform_to_dataframe(logging=logging, class_model=request)
     merge_data_enigh(client, tabla_enigh)
     client['liquidez_porcentual'] = client.apply(calculate_percentage_liquidity, axis=1)
@@ -58,11 +57,15 @@ def convert_input_data(logging, request: BaseModel):
     merge_data_itaee(client, itaee_gral)
 
     df_modelo = client.drop(['lugar_actual'] , axis= 1)
+    df_data_ml = pd.concat([df_data_ml, df_modelo])
+    df_data_ml = df_data_ml.drop(columns=['target'])
 
     variables = ['decil_ingreso_ENIGH', 'liquidez_porcentual', 'costo_de_vida']
     pca = PCA(n_components=1)
-    df_modelo['ENIGH'] = pca.fit_transform(df_modelo[variables])
-    df_modelo = df_modelo.drop(columns=variables)
+    df_data_ml['ENIGH'] = pca.fit_transform(df_data_ml[variables])
+    df_data_ml = df_data_ml.drop(columns=variables)
+
+    df_modelo = df_data_ml.tail(1)
 
     return df_modelo
 
