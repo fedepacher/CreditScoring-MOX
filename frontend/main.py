@@ -1,6 +1,13 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import requests
 
+
+LIMIT_LOWER = '300'
+LIMIT_A = '400'
+LIMIT_B = '550'
+LIMIT_C = '650'
+LIMIT_D = '850'
 
 Entities = ['Aguascalientes', 'Baja California', 'Baja California Sur',
 			'Campeche', 'Coahuila de Zaragoza', 'Colima', 'Chiapas', 'Chihuahua',
@@ -9,7 +16,6 @@ Entities = ['Aguascalientes', 'Baja California', 'Baja California Sur',
 			'Nuevo León', 'Oaxaca', 'Puebla', 'Querétaro', 'Quintana Roo',
 			'San Luis Potosí', 'Sinaloa', 'Sonora', 'Tabasco', 'Tamaulipas',
 			'Tlaxcala', 'Veracruz de Ignacio de la Llave', 'Yucatán', 'Zacatecas']
-
 
 variable = {
             "ingreso": 45000,
@@ -22,6 +28,7 @@ variable = {
 			"lugar_actual": "Aguascalientes"
             }
 
+
 def post():
 	base_url = f'https://scoring-service-tq7rapbbua-uc.a.run.app/v1/prediction'
 	resp = requests.post(base_url, json=variable)
@@ -32,8 +39,21 @@ def btn_disable(state):
     st.session_state['disabled'] = state
 
 
+with open('./frontend/code/gauge.html', 'r', encoding='utf-8') as file:
+	html_var = file.read()
+html_var = html_var.replace('LIMIT_LOWER', LIMIT_LOWER)
+html_var = html_var.replace('LIMIT_A', LIMIT_A)
+html_var = html_var.replace('LIMIT_B', LIMIT_B)
+html_var = html_var.replace('LIMIT_C', LIMIT_C)
+
 def main():
-	st.title("Consulta scoring")
+	left_col, cent_col,last_col = st.columns(3)
+	with cent_col:
+		st.image('./frontend/images/mox.jpg', use_column_width=True)
+	st.markdown("<h1 style='text-align: center; color: grey;'>Credit Scoring</h1>", 
+	     		unsafe_allow_html=True)
+	st.markdown("<hr class='my-4'>", unsafe_allow_html=True)
+
 	income = st.number_input("Ingreso", value=0.0, step=1.0)
 	if not isinstance(income, float) or income < 0:
 		st.error("Ingreso invalido")
@@ -72,10 +92,21 @@ def main():
 	variable["crecimiento_ingreso"] = float(income_growth)
 	variable["lugar_actual"] = str(lugar_actual)
 
-	consult_btn = st.button("Consultar", disabled=st.session_state.get("disabled", False))
-	if consult_btn:
-		results = post()
-		st.write(results)
+	col1, col2, col3, col4, col5 = st.columns(5)
+	with col3:
+		consult_btn = st.button("Consultar", disabled=st.session_state.get("disabled", False))
+	col1, col2, col3 = st.columns(3)
+	with col2:
+		if consult_btn:
+			results = post()
+			st.markdown(f'<h2 style=\'text-align: center; color: grey;\'>Cluster: {results["cluster"]}</h2>', unsafe_allow_html=True)
+			value = float(results["scoring"]) * (1/550) - (300/550)
+			var = html_var.replace('value_arg', str(value))
+			# st.write(var)
+			components.html(var,
+							width=400,
+							height=400
+							)
 
 
 if __name__ == '__main__':
