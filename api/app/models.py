@@ -2,15 +2,6 @@
 from pydantic import BaseModel
 
 
-Entities = ['Aguascalientes', 'Baja California', 'Baja California Sur',
-			'Campeche', 'Coahuila de Zaragoza', 'Colima', 'Chiapas', 'Chihuahua',
-			'Ciudad de México', 'Durango', 'Guanajuato', 'Guerrero', 'Hidalgo',
-			'Jalisco', 'México', 'Michoacán de Ocampo', 'Morelos', 'Nayarit',
-			'Nuevo León', 'Oaxaca', 'Puebla', 'Querétaro', 'Quintana Roo',
-			'San Luis Potosí', 'Sinaloa', 'Sonora', 'Tabasco', 'Tamaulipas',
-			'Tlaxcala', 'Veracruz de Ignacio de la Llave', 'Yucatán', 'Zacatecas']
-
-
 class IncomeRequest(BaseModel):
     """Prediction request class that contains the relevant features.
 
@@ -24,7 +15,7 @@ class IncomeRequest(BaseModel):
     semanasCotizadas: int
     edad: int
     crecimiento_ingreso: float
-    lugar_actual: str
+    lugar_actual: int
 
 
     def values_checker(self):
@@ -35,8 +26,7 @@ class IncomeRequest(BaseModel):
         """
         if self.ingreso < 0 or self.antiguedad_laboral_meses < 0 or self.tiempo_desempleado < 0 or \
            self.trabajos_ultimos_5 < 0 or self.semanasCotizadas < 0 or self.edad < 0 or \
-           (self.lugar_actual.lower() not in [x.lower() for x in Entities]) or \
-           (self.ingreso == 0 and self.crecimiento_ingreso != 0):
+           self.lugar_actual > 31 or (self.ingreso == 0 and self.crecimiento_ingreso != 0):
             return False
         return True
 

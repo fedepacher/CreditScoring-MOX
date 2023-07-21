@@ -9,6 +9,15 @@ from pandas import DataFrame
 from sklearn.decomposition import PCA
 
 
+Entities = ['Aguascalientes', 'Baja California', 'Baja California Sur',
+			'Campeche', 'Coahuila de Zaragoza', 'Colima', 'Chiapas', 'Chihuahua',
+			'Ciudad de México', 'Durango', 'Guanajuato', 'Guerrero', 'Hidalgo',
+			'Jalisco', 'México', 'Michoacán de Ocampo', 'Morelos', 'Nayarit',
+			'Nuevo León', 'Oaxaca', 'Puebla', 'Querétaro', 'Quintana Roo',
+			'San Luis Potosí', 'Sinaloa', 'Sonora', 'Tabasco', 'Tamaulipas',
+			'Tlaxcala', 'Veracruz de Ignacio de la Llave', 'Yucatán', 'Zacatecas']
+
+
 def get_model(logging, filenema=''):
     """Get the ML model from google storage.
 
@@ -98,7 +107,7 @@ def merge_data_enigh(client, tabla_enigh):
         tabla_enigh (Dataframe): Enigh dataframe.
     """
     for index, row in client.iterrows():
-        lugar_actual = row['lugar_actual'].lower()
+        lugar_actual = Entities[client['lugar_actual'].values[0]].lower()
         matching_row = tabla_enigh[tabla_enigh['Entidades'].str.lower() == lugar_actual]
         if not matching_row.empty:
             client.loc[index, 'liquidez_lugar_actual'] = matching_row['Liquidez'].values[0]
@@ -147,7 +156,7 @@ def merge_data_itaee(client, itaee_gral):
         client['crecimiento_gral'] = None
     for index, row in client.iterrows():
         try:
-            lugar_actual = row['lugar_actual'].lower()
+            lugar_actual = Entities[client['lugar_actual'].values[0]].lower()
             matching_row = itaee_gral[itaee_gral['entidad_federativa'].str.lower() == lugar_actual]
             if not matching_row.empty:
                 client.loc[index, 'crecimiento_gral'] = matching_row['2023|Anual'].values[0]
