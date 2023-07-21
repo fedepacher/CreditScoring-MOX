@@ -25,5 +25,6 @@ def make_model_prediction(request: IncomeRequest):
     """
     if request.values_checker():
         score_cliente, cluster_cliente = get_prediction(logging=logging, request=request)
-        return PredictionResponse(scoring=round(score_cliente*1000, 2), cluster=cluster_cliente)
+        return PredictionResponse(scoring=round(score_cliente * 1000, 2),
+                                  cluster=str(cluster_cliente))
     return {'Error': f'There are some error in fields {request}.'}

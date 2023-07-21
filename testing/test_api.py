@@ -13,7 +13,7 @@ def test_null_prediction():
                                                    "semanasCotizadas": 1000,
                                                    "edad": 32,
                                                    "crecimiento_ingreso": 265.38,
-                                                   "lugar_actual": "Aguascalientes"
+                                                   "lugar_actual": 18
                                                    })
     assert response.status_code == 200
     # assert response.json()['scoring'] == 678.17
@@ -29,7 +29,7 @@ def test_random_prediction():
                                                    "semanasCotizadas": 198,
                                                    "edad": 29,
                                                    "crecimiento_ingreso": 0,
-                                                   "lugar_actual": "Aguascalientes"
+                                                   "lugar_actual": 5
                                                    })
     assert response.status_code == 200
     # assert response.json()['scoring'] == 433.33
