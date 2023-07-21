@@ -1,19 +1,19 @@
 name: Continuous Integration - Continuous Deployment
-on: [push]
-  # push:
-  #    branches:
-  #     - main 
-  # workflow_run: # Every time that Continuous Training workflow run, trigger this one
-  #   workflows: ["Continuous Training"]
-  #   branches: [main]  # From main 
-  #   types:  # When finish the previous workflow
-  #     - completed
-  # workflow_dispatch:
-  #   inputs:
-  #     reason:
-  #       description: Why to run this?
-  #       required: false
-  #       default: running CI/CD
+on:
+  push:
+     branches:
+      - main 
+  workflow_run: # Every time that Continuous Training workflow run, trigger this one
+    workflows: ["Continuous Training"]
+    branches: [main]  # From main 
+    types:  # When finish the previous workflow
+      - completed
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: Why to run this?
+        required: false
+        default: running CI/CD
 jobs:
   ci_cd:
     runs-on: ubuntu-latest
