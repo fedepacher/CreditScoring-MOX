@@ -2,15 +2,10 @@ schema: '2.0'
 stages:
   prepare:
     cmd: python src/prepare_data.py -f 'etl_process'
-    outs:
-    - path: dataset/data_prueba_limpia.csv
-      hash: md5
-      md5: f99eb76e60e05e20dd7ee18b8b337f90
-      size: 2399741
   training:
     cmd: python src/prepare_data.py -f 'models'
     deps:
     - path: dataset/data_prueba_limpia.csv
       hash: md5
-      md5: f99eb76e60e05e20dd7ee18b8b337f90
-      size: 2399741
+      md5: b420ac5c995287d50eb611f15b109029
+      size: 2401539
