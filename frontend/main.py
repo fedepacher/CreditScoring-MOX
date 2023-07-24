@@ -54,7 +54,7 @@ backgroundColor = st.get_option("theme.backgroundColor")
 s = f"""
 <style>
 div.stButton > button:first-child {{ background: {primaryColor}; 
- height:2em; width:7em; color:{backgroundColor}}}
+ height:2em; width:8em; color:{backgroundColor}}}
  div.stButton > button:hover {{
     background-color: #ffffff;
     color:#000000;
@@ -154,7 +154,7 @@ def main():
 			var = html_var.replace('value_arg', str(value))
 			# st.write(var)
 			components.html(var,
-							width=400,
+							width=250,
 							height=400
 							)
 
