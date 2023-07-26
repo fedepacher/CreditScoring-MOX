@@ -53,6 +53,21 @@ requested profile and immediately offers a balanced metric for easy classificati
 - utilities/: Utils functions.
 - …: Miscellaneous project files.
 
+## The main tasks that are executed in the pipeline
+
+- Cloning the working main branch.
+- Creation of a virtual environment.
+- Installation of dependencies (requirements.txt).
+- Configuration of environment variables to be able to access the GCP storage.
+- Acquisition of the models and datasets stored in the GCP storage using the DVC tool.
+- Execution of the ETL script and the Machine Learning script which will generate new models and new datasets.
+- Storage of the new models and datasets created in the GCP storage using the DVC tool.
+- Update of the git repository with the new files that contain the reference to the previously created models and datasets.
+- Publication of the most important metrics and sending information to the email address configured to monitor the status of the model.
+
+
+<p align=center><img src=_src/assets/tasks.png><p>
+
 
 
 ## GCP Storage Configuration
@@ -221,14 +236,14 @@ base64 <file-name>.json
 - Set Region ``us-central1 (Iowa)
 - Authentication -> Allow unauthenticated invocations
 - Set Minimun Instance Number = 1
-- Set Maximun Instance Number = 10 or grater
+- Set Maximun Instance Number = 10 or greater
 - Select Containers, Net tools, Security
 
 <p align=center><img src=_src/assets/containers.png><p>
 
 - Container Port = 8000
-- Memory = 1Gb or grater
-- Maximum number of concurrent requests per instance = 10 or grater
+- Memory = 1Gb or greater
+- Maximum number of concurrent requests per instance = 10 or greater
 - Create
 
 ## Create a Cloud Run Service for the Frontend App
@@ -260,9 +275,9 @@ The following secrets can be found in the Cloud Run Services created in the prev
 
 The REGISTRY_NAME and REGISTRY_NAME_FRONT can be created as follow:
 
-gcr.io/<PROJECT_ID>/<NAME>
+gcr.io/<PROJECT_ID>/<NAME_REG>
 
-Where NAME is a name that we pick and PROJECT_ID can be found as follow.
+Where NAME_REG is a name that we pick and PROJECT_ID can be found as follow.
 
 <p align=center><img src=_src/assets/project_id.png><p>
 
