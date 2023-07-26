@@ -3,6 +3,13 @@ import streamlit.components.v1 as components
 import requests
 
 
+# Cloud Deployment
+URL = 'https://scoring-service-tq7rapbbua-uc.a.run.app'
+
+# Local Deployment
+# URL = 'http://api:8000'
+
+
 LIMIT_LOWER = '300'
 LIMIT_A = '400'
 LIMIT_B = '500'
@@ -31,7 +38,7 @@ variable = {
 
 
 def post():
-	base_url = f'https://scoring-service-tq7rapbbua-uc.a.run.app/v1/prediction'
+	base_url = f'{URL}/v1/prediction'
 	resp = requests.post(base_url, json=variable)
 	return resp.json()
 	
