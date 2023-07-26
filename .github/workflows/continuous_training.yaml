@@ -34,28 +34,20 @@ jobs:
           dvc pull model/model_reg.pkl -r model-track
           dvc pull model/model_clf.pkl -r model-track
           dvc pull model/model_scaler.pkl -r model-track
-          dvc pull dataset/enigh.csv -r dataset-track
-          dvc pull dataset/itaee_gral_2023.csv -r dataset-track
           dvc pull dataset/data_prueba_limpia.csv -r dataset-track
           dvc unprotect model/model_reg.pkl
           dvc unprotect model/model_clf.pkl
           dvc unprotect model/model_scaler.pkl
-          dvc unprotect dataset/enigh.csv
-          dvc unprotect dataset/itaee_gral_2023.csv
           dvc unprotect dataset/data_prueba_limpia.csv
           dvc repro -f
           echo "Training Completed"
           dvc add model/model_reg.pkl -r model-track --to-remote
           dvc add model/model_clf.pkl -r model-track --to-remote
           dvc add model/model_scaler.pkl -r model-track --to-remote
-          dvc add dataset/enigh.csv -r dataset-track --to-remote
-          dvc add dataset/itaee_gral_2023.csv -r dataset-track --to-remote
           dvc add dataset/data_prueba_limpia.csv -r dataset-track --to-remote
           dvc push model/model_reg.pkl -r model-track
           dvc push model/model_clf.pkl -r model-track
           dvc push model/model_scaler.pkl -r model-track
-          dvc push dataset/enigh.csv -r dataset-track
-          dvc push dataset/itaee_gral_2023.csv -r dataset-track
           dvc push dataset/data_prueba_limpia.csv -r dataset-track
       - name: Commit .dvc file changes # Create a commit of the new model
         run: |
@@ -64,8 +56,6 @@ jobs:
           git add model/model_reg.pkl.dvc
           git add model/model_clf.pkl.dvc
           git add model/model_scaler.pkl.dvc
-          git add dataset/enigh.csv.dvc
-          git add dataset/itaee_gral_2023.csv.dvc
           git add dataset/data_prueba_limpia.csv.dvc
           git commit -m "feat(#27) updating model serialization"
       - uses: ad-m/github-push-action@master # Create git push
