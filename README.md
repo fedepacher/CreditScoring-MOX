@@ -39,19 +39,19 @@ requested profile and immediately offers a balanced metric for easy classificati
 
 ## Repository content
 
-- .dvc/: DVC configuration files.
-- .github/workflows/: Github Actions.
-- .streamlit/: Frontend configurations.
-- api/: API development.
-- business_rules/: JSON file with business rules.
-- dataset/: Dataset files.
-- frontend/: Frontend development.
-- model/: machine learning models files.
-- notebooks/: Notebooks file with etl and machine learning.
-- src/: Training scripts files.
-- testing/: API test files.
-- utilities/: Utils functions.
-- …: Miscellaneous project files.
+- **.dvc/**: DVC configuration files.
+- **.github/workflows/**: Github Actions.
+- **.streamlit/**: Frontend configurations.
+- **api/**: API development.
+- **business_rules/**: JSON file with business rules.
+- **dataset/**: Dataset files.
+- **frontend/**: Frontend development.
+- **model/**: machine learning models files.
+- **notebooks/**: Notebooks file with etl and machine learning.
+- **src/**: Training scripts files.
+- **testing/**: API test files.
+- **utilities/**: Utils functions.
+- **…**: Miscellaneous project files.
 
 ## The main tasks that are executed in the pipeline
 
@@ -318,6 +318,10 @@ Check the environment variable:
 echo $GOOGLE_APPLICATION_CREDENTIALS
 ```
 
+Go to the `/frontend/main.py` file and uncomment the following line:
+
+<p align=center><img src=_src/assets/url.png><p>
+
 Run the docker compose file to deploy the project:
 
 ```
@@ -338,8 +342,62 @@ localhost:8000
 
 ## Cloud Deployment
 
-The cloud deployment was set to be automaticaly by Github Actions in the `.github/workflows/ci_cd.yaml` file, and it will be done everytime a `git push` command is excecuted into the `main` branch.
+The cloud deployment was set to be automaticaly by Github Actions in the `.github/workflows/ci_cd.yaml` file, and it will be done everytime a `git push` command is excecuted into the `main` branch.<br>
+The path for the frontend service can be found in the Cloud Run Service. For this deployment run the following [link](https://scoring-front-service-tq7rapbbua-uc.a.run.app/).<br>
+The path for the API service can be found in the Cloud Run Service. For this deployment run the following [link](https://scoring-service-tq7rapbbua-uc.a.run.app/).<br>
 
+## API deployment
+
+In the [link](https://scoring-service-tq7rapbbua-uc.a.run.app/#/default/make_model_prediction_v1_prediction_post) for the API you can find the information about the endpoint and the input and outpud data.<br>
+
+### Endpoint 
+
+```
+/v1/prediction
+```
+
+### Input JSON schema: 
+
+```
+{
+  "ingreso": 0,
+  "antiguedad_laboral_meses": 0,
+  "tiempo_desempleado": 0,
+  "trabajos_ultimos_5": 0,
+  "semanasCotizadas": 0,
+  "edad": 0,
+  "crecimiento_ingreso": 0,
+  "lugar_actual": 0
+}
+```
+
+### Input data type:
+
+```
+ingreso: float
+antiguedad_laboral_meses: int
+tiempo_desempleado: int
+trabajos_ultimos_5: int
+semanasCotizadas: int
+edad: int
+crecimiento_ingreso: float
+lugar_actual: int
+```
+
+### Output JSON schema: 
+
+```
+{
+  "scoring": 323.75,
+  "cluster": "C"
+}
+```
+### Output data type:
+
+```
+scoring: float
+cluster: str
+```
 
 ## Continuous Training
 
@@ -347,3 +405,8 @@ The continuous training was set to be automaticaly by Github Actions in the `.gi
 To configure email report please configure the `.github/workflows/continuous_training.yaml` file with your own email as is shown in the picture below:
 
 <p align=center><img src=_src/assets/email_git.png><p>
+
+
+# License
+
+This project is licensed under the GPL-2.0 license.
