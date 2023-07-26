@@ -47,6 +47,7 @@ def btn_disable(state):
     st.session_state['disabled'] = state
 
 
+# Get gauge
 with open('./frontend/code/gauge.html', 'r', encoding='utf-8') as file:
 	html_var = file.read()
 html_var = html_var.replace('LIMIT_LOWER', LIMIT_LOWER)
@@ -56,46 +57,9 @@ html_var = html_var.replace('LIMIT_C', LIMIT_C)
 html_var = html_var.replace('LIMIT_D', LIMIT_D)
 
 
-primaryColor = st.get_option("theme.primaryColor")
-backgroundColor = st.get_option("theme.backgroundColor")
-s = f"""
-<style>
-div.stButton > button:first-child {{ background: {primaryColor}; 
- height:2em; width:8em; color:{backgroundColor}}}
- div.stButton > button:hover {{
-    background-color: #ffffff;
-    color:#000000;
-    }}
-div.stButton > button:focus {{
-    background-color: #262730;
-    color:#60616D;
-    }}
-div[data-baseweb="select"] > div {{
-    background-color: #91E4DB;
-}}
-
-</style>
-"""
-st.markdown(s, unsafe_allow_html=True)
-components.html(
-    """
-		<script>
-		const elements = window.parent.document.querySelectorAll('.stNumberInput div[data-baseweb="input"] > div')
-		console.log(elements)
-		const color = '#A29DF1'
-		elements[0].style.backgroundColor = color
-		elements[1].style.backgroundColor = color
-		elements[2].style.backgroundColor = color
-		elements[3].style.backgroundColor = color
-		elements[4].style.backgroundColor = color
-		elements[5].style.backgroundColor = color
-		elements[6].style.backgroundColor = color
-		elements[7].style.backgroundColor = color
-		</script>
-		""",
-    height=0,
-    width=0,
-)
+# Get components style
+with open('./frontend/code/style.css', 'r', encoding='utf-8') as file:
+	st.markdown(f'<style>{file.read()}</style>', unsafe_allow_html=True)
 
 
 def main():
