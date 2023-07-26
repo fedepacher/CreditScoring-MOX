@@ -93,7 +93,7 @@ def main():
 			st.error("Semanas Cotizadas invalido")
 		age = st.number_input("Edad", value=18, step=1)
 		if not isinstance(age, int) or age < 18 or age > 100:
-			st.error("Edad invalida, debe ser mayor a 18 años")
+			st.error("Edad invalida, debe ser mayor de 18 y menor a 100 años")
 		income_growth = st.number_input("Crecimiento de Ingreso", value=0.0, step=1.0)
 		if not isinstance(income_growth, float) or (income == 0 and income_growth != 0):
 			st.error("Crecimiento de Ingreso invalido o Ingreso igual a 0")
@@ -140,7 +140,7 @@ def main():
 			var = html_var.replace('value_arg', str(value))
 			# st.write(var)
 			components.html(var,
-							width=250,
+							width=230,
 							height=400
 							)
 
