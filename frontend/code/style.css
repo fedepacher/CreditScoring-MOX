@@ -7,23 +7,57 @@ div.st-b3.st-b8.st-c0.st-b1.st-bq.st-ae.st-af.st-ag.st-ah.st-ai.st-aj.st-c1.st-b
     color: #ffffff
 } */
 
+button.step-down.css-1tqkt1s.e116k4er1 {
+    /* border: 1px solid #423bb6; */
+    background-color: #d2d3db;
+}
+
+button.step-down.css-1tqkt1s.e116k4er1:hover{
+    /* border: 1px solid #423bb6; */
+    background-color: #423bb6;
+}
+
+button.step-up.css-1tqkt1s.e116k4er1 {
+    /* border: 1px solid #423bb6; */
+    background-color: #d2d3db;
+}
+
+button.step-up.css-1tqkt1s.e116k4er1:hover {
+    /* border: 1px solid #423bb6; */
+    background-color: #423bb6;
+}
+
 button.css-k9lh3d.ef3psqc11 {
     background-color: #423bb6;
     height: 2em; 
     width: 8em; 
-    color: #ffffff
+    color: #d2d3db
 }
 
 button.css-k9lh3d.ef3psqc11:hover {
-    background-color: #ffffff;
+    background-color: #d2d3db;
     color: #000000
 }
 
+/*Button pressed*/
 button.css-k9lh3d.ef3psqc11:focus {
     background-color: #262730;
-    color: #ffffff
+    color: #60616D
 }
 
+/*Field select entity*/
 div.st-bf.st-cj.st-cp.st-cq.st-cr.st-b3.st-cs.st-ct.st-bg.st-cc.st-cd.st-ce.st-cf {
     background-color: #91E4DB;
+}
+
+/*Button select entity*/
+div.st-bf.st-cj.st-b3.st-dg.st-cs.st-dh.st-cf {
+    /* border: 1px solid #0fc2ad; */
+    background-color: #d2d3db;
+}
+
+/*Button select entity*/
+div.st-bf.st-cj.st-b3.st-dg.st-cs.st-dh.st-cf:hover {
+    /* border: 1px solid #0fc2ad; */
+    background-color: #00C49F;
 }

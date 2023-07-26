@@ -9,7 +9,10 @@ URL = 'https://scoring-service-tq7rapbbua-uc.a.run.app'
 # Local Deployment
 # URL = 'http://api:8000'
 
-
+CLUSTER_A = 'Segmento de altos ingresos y baja rotación laboral'
+CLUSTER_B = 'Segmento de ingresos medios con estabilidad laboral'
+CLUSTER_C = 'Segmento de jóvenes con bajos ingresos y poca estabilidad'
+CLUSTER_D = 'Segmento actualmente desocupado y pocas posibilidades de reinserción'
 LIMIT_LOWER = '300'
 LIMIT_A = '400'
 LIMIT_B = '500'
@@ -121,6 +124,18 @@ def main():
 		if consult_btn:
 			results = post()
 			st.markdown(f'<h2 style=\'text-align: center; color: grey;\'>Cluster: {results["cluster"]}</h2>', unsafe_allow_html=True)
+			if results["cluster"].lower() == 'a':
+				cluster = CLUSTER_A
+			elif results["cluster"].lower() == 'b':
+				cluster = CLUSTER_B
+			elif results["cluster"].lower() == 'c':
+				cluster = CLUSTER_C
+			else:
+				cluster = CLUSTER_D
+			
+			st.markdown(f'<p style=\'text-align: center; color: black;\'>{cluster}</p>',
+	       				unsafe_allow_html=True)
+			
 			value = float(results["scoring"]) * (1/550) - (300/550)
 			var = html_var.replace('value_arg', str(value))
 			# st.write(var)
