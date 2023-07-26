@@ -344,3 +344,6 @@ The cloud deployment was set to be automaticaly by Github Actions in the `.githu
 ## Continuous Training
 
 The continuous training was set to be automaticaly by Github Actions in the `.github/workflows/continuous_training.yaml` file, and it will be done everytime the cloud deployment is triggered or/and every day at midnight, set by a cron job.
+To configure email report please configure the `.github/workflows/continuous_training.yaml` file with your own email as is shown in the picture below:
+
+<p align=center><img src=_src/assets/email_git.png><p>
