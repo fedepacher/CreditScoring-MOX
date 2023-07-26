@@ -74,7 +74,7 @@ div[data-baseweb="select"] > div {{
     background-color: #91E4DB;
 }}
 
-<style>
+</style>
 """
 st.markdown(s, unsafe_allow_html=True)
 components.html(
