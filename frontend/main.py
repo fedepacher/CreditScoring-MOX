@@ -66,42 +66,58 @@ with open('./frontend/code/style.css', 'r', encoding='utf-8') as file:
 
 
 def main():
-	left_col, cent_col,last_col = st.columns(3)
+	left_col, cent_col, right_col = st.columns(3)
 	with cent_col:
 		st.image('./frontend/images/mox.jpg', use_column_width=True)
-	st.markdown("<h1 style='text-align: center; color: grey;'>Income Scoring</h1>", 
+	st.markdown("<h1 style='text-align: center; color: grey;'>Income Scoring</h1>",
 	     		unsafe_allow_html=True)
 	st.markdown("<hr class='my-4'>", unsafe_allow_html=True)
 
 	left_col, right_col = st.columns(2)
 	with left_col:
-		income = st.number_input("Ingreso", value=0.0, step=1.0)
+		income = st.number_input("Ingreso", value=0.0, step=100.0)
+		seniority_employment_months = st.number_input("Antigüedad Laboral (meses)", value=0, step=1)
+		time_unemployed = st.number_input("Tiempo Desempleado (meses)", value=0, step=1)
+		last_5_jobs = st.number_input("Trabajos Últimos 5 años", value=0, step=1)
+		
+
+		# Check invalid values
 		if not isinstance(income, float) or income < 0:
 			st.error("Ingreso invalido")
-		seniority_employment_months = st.number_input("Antigüedad Laboral (meses)", value=0, step=1)
+
 		if not isinstance(seniority_employment_months, int) or seniority_employment_months < 0:
 			st.error("Antigüedad Laboral (meses) invalido")
-		time_unemployed = st.number_input("Tiempo Desempleado (meses)", value=0, step=1)
+		
 		if not isinstance(time_unemployed, int) or time_unemployed < 0:
 			st.error("Tiempo Desempleado (meses) invalido")
-		last_5_jobs = st.number_input("Trabajos Últimos 5 años", value=0, step=1)
+		
 		if not isinstance(last_5_jobs, int) or last_5_jobs < 0:
 			st.error("Trabajos Últimos 5 años invalido")
+
+		if (seniority_employment_months > 0 and time_unemployed > 0):
+			st.error("Tiempo Desempleado y Antigüedad Laboral no pueden ser ambos mayor a 0")
+
 	with right_col:
 		weekwage = st.number_input("Semanas Cotizadas", value=0, step=1)
-		if not isinstance(weekwage, int) or weekwage < 0:
-			st.error("Semanas Cotizadas invalido")
 		age = st.number_input("Edad", value=18, step=1)
-		if not isinstance(age, int) or age < 18 or age > 100:
-			st.error("Edad invalida, debe ser mayor de 18 y menor a 100 años")
 		income_growth = st.number_input("Crecimiento de Ingreso", value=0.0, step=1.0)
-		if not isinstance(income_growth, float) or (income == 0 and income_growth != 0):
-			st.error("Crecimiento de Ingreso invalido o Ingreso igual a 0")
 		lugar_actual = st.selectbox("Seleccione Entidad Federativa", Entities)
 		lugar = Entities.index(lugar_actual)
 
+		# Check invalid values
+		if not isinstance(weekwage, int) or weekwage < 0:
+			st.error("Semanas Cotizadas invalido")
+
+		if not isinstance(age, int) or age < 18 or age > 80:
+			st.error("Edad invalida, debe ser entre 18 y 80 años")
+
+		if not isinstance(income_growth, float) or (income == 0 and income_growth != 0):
+			st.error("Crecimiento de Ingreso invalido o Ingreso igual a 0")
+
 	if income < 0 or seniority_employment_months < 0 or time_unemployed < 0 or last_5_jobs < 0 or \
-	   weekwage < 0 or age < 18 or age > 100:
+	   weekwage < 0 or age < 18 or age > 80 or \
+	   income == 0 and income_growth != 0 or \
+	   (seniority_employment_months > 0 and time_unemployed > 0):
 		btn_disable(True)
 	else:
 		btn_disable(False)

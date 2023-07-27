@@ -25,8 +25,10 @@ class IncomeRequest(BaseModel):
             bool: True if request has correct params.
         """
         if self.ingreso < 0 or self.antiguedad_laboral_meses < 0 or self.tiempo_desempleado < 0 or \
-           self.trabajos_ultimos_5 < 0 or self.semanasCotizadas < 0 or self.edad < 0 or \
-           self.lugar_actual > 31 or (self.ingreso == 0 and self.crecimiento_ingreso != 0):
+           self.trabajos_ultimos_5 < 0 or self.semanasCotizadas < 0 or self.edad < 18 or \
+           self.edad > 80 or self.lugar_actual > 31 or \
+           (self.ingreso == 0 and self.crecimiento_ingreso != 0) or \
+           (self.antiguedad_laboral_meses > 0 and self.tiempo_desempleado > 0):
             return False
         return True
 
