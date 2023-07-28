@@ -4,86 +4,69 @@ p {
     font-style: italic;
 }
 
-input.st-bf.st-c2.st-bh.st-bi.st-bj.st-bk.st-c3.st-c4.st-c5.st-c6.st-c7.st-b8.st-c8.st-c9.st-ca.st-cb.st-cc.st-cd.st-ce.st-cf.st-ae.st-af.st-ag.st-cg.st-ai.st-aj.st-c1.st-ch.st-ci
-{
-    font-size: 20px;
+/*Input*/
+/*-----------------------------------------------------------------------*/
+.stTextInput > label {
+    font-size:120%;
+    font-weight:bold;
+    color:white;
+    background:linear-gradient(to bottom, #423bb6 0%,#ada8f5 100%);
+    border: 2px;
+    border-radius: 3px;
+    }
+    
+[data-baseweb="base-input"]{
+    background:linear-gradient(to bottom, #423bb6 0%,#ada8f5 100%);
+    border: 2px;
+    border-radius: 3px;
+    }
+    
+input[class]{
     font-weight: bold;
-}
+    font-size:120%;
+    color: white;
+    }
 
-/*Input number*/
-div.st-b3.st-b8.st-c0.st-b1.st-bq.st-ae.st-af.st-ag.st-ah.st-ai.st-aj.st-c1.st-bx.st-br.st-bs {
-    background-color: #A29DF1;
-}
+button[class]{
+    background:linear-gradient(to bottom, #646464 0%,#b2b1b4 100%);
+    font-weight: bold;
+    font-size:120%;
+    color: black;
+    }
 
-/* div.css-76z9jo.ellz0s82 {
-    background-color: #423bb6;
-    color: #ffffff
-} */
+button[class]:hover{
+    background:linear-gradient(to bottom, #423bb6 0%,#ada8f5 100%);
+    font-weight: bold;
+    font-size:120%;
+    color: white;
+    }
 
-/*Increase/decrease value*/
-button.step-down.css-1tqkt1s.e116k4er1 {
-    /* border: 1px solid #423bb6; */
-    background-color: #d2d3db;
-}
+/*-----------------------------------------------------------------------*/
 
-/*Increase/decrease value*/
-button.step-down.css-1tqkt1s.e116k4er1:hover{
-    /* border: 1px solid #423bb6; */
-    background-color: #423bb6;
-}
+/*Select*/
+/*-----------------------------------------------------------------------*/
+div[data-baseweb="select"] > div {
+    background:linear-gradient(to bottom, #00C49F 0%,#91E4DB 100%);
+    /* border: 2px;
+    border-radius: 3px; */
+    font-weight: bold;
+    font-size:120%;
+    color: white;
+    height: 45px;
+    }
 
-/*Increase/decrease value*/
-button.step-up.css-1tqkt1s.e116k4er1 {
-    /* border: 1px solid #423bb6; */
-    background-color: #d2d3db;
-}
+/*-----------------------------------------------------------------------*/
 
-/*Increase/decrease value*/
-button.step-up.css-1tqkt1s.e116k4er1:hover {
-    /* border: 1px solid #423bb6; */
-    background-color: #423bb6;
-}
-
-/*Button Consultar*/
-button.css-k9lh3d.ef3psqc11 {
-    background-color: #423bb6;
+/*Button*/
+/*-----------------------------------------------------------------------*/
+.stButton > button{
+    font-size:120%;
+    font-weight:bold;
     height: 2em; 
-    width: 8em; 
-    color: #d2d3db;
+    width: 7em; 
+    color:black;
+    background:linear-gradient(to bottom, #646464 0%,#b2b1b4 100%);
+    border: 2px;
+    border-radius: 6px;
 }
-
-/*Button Consultar*/
-button.css-k9lh3d.ef3psqc11:hover {
-    background-color: #d2d3db;
-    color: #000000;
-}
-
-/*Button pressed*/
-button.css-k9lh3d.ef3psqc11:focus {
-    background-color: #423bb6;
-    color: #d2d3db;
-}
-
-/*Field select entity*/
-div.st-bf.st-cj.st-cp.st-cq.st-cr.st-b3.st-cs.st-ct.st-bg.st-cc.st-cd.st-ce.st-cf {
-    background-color: #91E4DB;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-/*Button select entity*/
-div.st-bf.st-cj.st-b3.st-dg.st-cs.st-dh.st-cf {
-    /* border: 1px solid #0fc2ad; */
-    background-color: #d2d3db;
-}
-
-/*Button select entity*/
-div.st-bf.st-cj.st-b3.st-dg.st-cs.st-dh.st-cf:hover {
-    /* border: 1px solid #0fc2ad; */
-    background-color: #00C49F;
-}
-
-/*Desplegable*/
-/* ul.st-dw.st-cj.st-ar.st-as.st-b6.st-b5.st-d1.st-d2.st-d3.st-d4.st-au.st-av.st-aw.st-ax.st-dx.st-e3.st-e4 {
-    background-color: #91E4DB;
-} */
+/*-----------------------------------------------------------------------*/
