@@ -1,5 +1,5 @@
 outs:
-- md5: 567071a16079e4ce7f8bb74d24672eee
-  size: 13247609
+- md5: 667f84b52d3aed74db0599ff10835a8e
+  size: 13120313
   hash: md5
   path: model_clf.pkl
