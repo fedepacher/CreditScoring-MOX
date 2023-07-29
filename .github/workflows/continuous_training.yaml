@@ -51,6 +51,8 @@ jobs:
           dvc push dataset/data_prueba_limpia.csv -r dataset-track
       - name: Create models
         if: failure()
+        env:
+          SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
         run: |
           pip3 install virtualenv
           virtualenv venv
@@ -78,10 +80,12 @@ jobs:
           git add dataset/data_prueba_limpia.csv.dvc
           git commit -m "feat(#27) updating model serialization"
       - uses: ad-m/github-push-action@master # Create git push
+        if: always()
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             branch: ${{ github.ref }}
       - uses: iterative/setup-cml@v1
+        if: always()
       - name: Push metrics
         if: always()
         env:
