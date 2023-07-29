@@ -4,8 +4,3 @@ stages:
     cmd: python src/prepare_data.py -f 'etl_process'
   training:
     cmd: python src/prepare_data.py -f 'models'
-    deps:
-    - path: dataset/data_prueba_limpia.csv
-      hash: md5
-      md5: b420ac5c995287d50eb611f15b109029
-      size: 2401539
