@@ -41,6 +41,14 @@ jobs:
           dvc unprotect dataset/data_prueba_limpia.csv
           dvc repro -f
           echo "Training Completed"
+          dvc add model/model_reg.pkl -r model-track --to-remote
+          dvc add model/model_clf.pkl -r model-track --to-remote
+          dvc add model/model_scaler.pkl -r model-track --to-remote
+          dvc add dataset/data_prueba_limpia.csv -r dataset-track --to-remote
+          dvc push model/model_reg.pkl -r model-track
+          dvc push model/model_clf.pkl -r model-track
+          dvc push model/model_scaler.pkl -r model-track
+          dvc push dataset/data_prueba_limpia.csv -r dataset-track
       - name: Create models
         if: failure()
         run: |
@@ -51,9 +59,6 @@ jobs:
           export GOOGLE_APPLICATION_CREDENTIALS=$(python utilities/setter.py)
           dvc repro -f
           echo "Training Completed"
-      - name: Push .dvc file changes to DVC
-        if: always()
-        run: |
           dvc add model/model_reg.pkl -r model-track --to-remote
           dvc add model/model_clf.pkl -r model-track --to-remote
           dvc add model/model_scaler.pkl -r model-track --to-remote
