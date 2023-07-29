@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: Checkout Repoository
         uses: actions/checkout@v3
-      - name: Set environment and bring the model
+      - name: Set environment and bring the ML models from storage
         run: |
           pip3 install virtualenv
           virtualenv venv
@@ -45,20 +45,42 @@ jobs:
           dvc pull model/model_clf.pkl -r model-track
           dvc pull model/model_scaler.pkl -r model-track
           dvc pull dataset/data_prueba_limpia.csv -r dataset-track
+      - name: Create models
+        if: failure()
+        run: |
+          pip3 install virtualenv
+          virtualenv venv
+          source venv/bin/activate
+          pip install -r src/requirements.txt
+          export GOOGLE_APPLICATION_CREDENTIALS=$(python utilities/setter.py)
+          dvc repro -f
+          echo "Training Completed"
+          dvc add model/model_reg.pkl -r model-track --to-remote
+          dvc add model/model_clf.pkl -r model-track --to-remote
+          dvc add model/model_scaler.pkl -r model-track --to-remote
+          dvc add dataset/data_prueba_limpia.csv -r dataset-track --to-remote
+          dvc push model/model_reg.pkl -r model-track
+          dvc push model/model_clf.pkl -r model-track
+          dvc push model/model_scaler.pkl -r model-track
+          dvc push dataset/data_prueba_limpia.csv -r dataset-track
       - name: Authenticate to Google Cloud
+        if: always()
         id: auth
         uses: google-github-actions/auth@v0
         with:
           credentials_json: '${{ secrets.SERVICE_ACCOUNT_KEY }}'
       - name: Set up GCLOUD SDK
+        if: always()
         uses: google-github-actions/setup-gcloud@v1
         with:
           service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
           project_id: ${{ secrets.PROJECT_ID }}
       - name: Configure Docker
+        if: always()
         run: |
           gcloud auth configure-docker -q
       - name: Build and Push Docker
+        if: always()
         run: |
           docker build . -t $REGISTRY_NAME:$GITHUB_SHA
           docker build frontend/. -t $REGISTRY_NAME_FRONT:$GITHUB_SHA
@@ -66,6 +88,7 @@ jobs:
           sudo -u $USER docker push $REGISTRY_NAME:$GITHUB_SHA
           sudo -u $USER docker push $REGISTRY_NAME_FRONT:$GITHUB_SHA
       - name: Deploy to Cloud Run
+        if: always()
         run: |
           gcloud run deploy $SERVICE_NAME --region=$REGION --image=$REGISTRY_NAME:$GITHUB_SHA
           gcloud run deploy $SERVICE_NAME_FRONT --region=$REGION --image=$REGISTRY_NAME_FRONT:$GITHUB_SHA
