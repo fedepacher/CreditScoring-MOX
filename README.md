@@ -101,11 +101,13 @@ requested profile and immediately offers a balanced metric for easy classificati
 <p align=center><img src=_src/assets/create_bucket.png><p>
 <p align=center><img src=_src/assets/create_bucket_1.png><p>
 
-- Set a name.
-- Other field by default.
-- Create a folder for dataset and for models
+- Set the name as follow `model-and-dataset-tracker`.
+- Other fields by default.
+- Create a folder for dataset and for model with the following names:
+  - `dataset`
+  - `model`
 
-
+>Note: It is important to use the same names, otherwise it will need to change the .dvc/config file.
 ## DVC (Data Version Control) Initialization
 
 - Install dvc and dvc-gs dependencies
