@@ -41,6 +41,19 @@ jobs:
           dvc unprotect dataset/data_prueba_limpia.csv
           dvc repro -f
           echo "Training Completed"
+      - name: Create models
+        if: failure()
+        run: |
+          pip3 install virtualenv
+          virtualenv venv
+          source venv/bin/activate
+          pip install -r src/requirements.txt
+          export GOOGLE_APPLICATION_CREDENTIALS=$(python utilities/setter.py)
+          dvc repro -f
+          echo "Training Completed"
+      - name: Push .dvc file changes to DVC
+        if: always()
+        run: |
           dvc add model/model_reg.pkl -r model-track --to-remote
           dvc add model/model_clf.pkl -r model-track --to-remote
           dvc add model/model_scaler.pkl -r model-track --to-remote
@@ -49,7 +62,8 @@ jobs:
           dvc push model/model_clf.pkl -r model-track
           dvc push model/model_scaler.pkl -r model-track
           dvc push dataset/data_prueba_limpia.csv -r dataset-track
-      - name: Commit .dvc file changes # Create a commit of the new model
+      - name: Commit .dvc file changes to Git # Create a commit of the new model
+        if: always()
         run: |
           git config --local user.email "fede_pacher@hotmail.com"
           git config --local user.name "github-actions[bot]"
@@ -64,6 +78,7 @@ jobs:
             branch: ${{ github.ref }}
       - uses: iterative/setup-cml@v1
       - name: Push metrics
+        if: always()
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
