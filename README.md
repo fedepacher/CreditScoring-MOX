@@ -106,6 +106,7 @@ export GOOGLE_APPLICATION_CREDENTIALS=$(realpath <credential-file>.json)
 echo $GOOGLE_APPLICATION_CREDENTIALS
 ```
 
+[Video Section 1](https://drive.google.com/file/d/1sbK0NhaJPixd95YyEI_jdWscAvkKP3rT/view?usp=sharing)
 
 # Section 2
 
@@ -124,6 +125,7 @@ echo $GOOGLE_APPLICATION_CREDENTIALS
 
 >Note: It is important to use the same names, otherwise it will need to change the .dvc/config file.
 
+[Video Section 2](https://drive.google.com/file/d/1lq9G0eI5cP-gKNjilLhXWyDfXHorkxN8/view?usp=sharing)
 
 # Section 3
 
@@ -163,6 +165,7 @@ base64 <file-name>.json
 
 - Create SERVICE_ACCOUNT_KEY secrete name and paste the `base64 <file-name>.json` output.
 
+[Video Section 3](https://drive.google.com/file/d/1rmDh7hRnXPijSRR7yUBLrY9OLR9cUiHE/view?usp=sharing)
 
 # Section 4
 
@@ -194,6 +197,8 @@ base64 <file-name>.json
 - Maximum number of concurrent requests per instance = 10 or greater
 - Create
 
+
+[Video Section 4](https://drive.google.com/file/d/1lul17xlwB0mtt9JGaaUvNEChT_KYg2rR/view?usp=sharing)
 
 ## Create a Cloud Run Service for the Frontend App
 
@@ -254,6 +259,8 @@ At the end of these steps, the following secrets must be created in order to get
 <p align=center><img src=_src/assets/all_secrets.png><p>
 
 
+[Video Section 5](https://drive.google.com/file/d/1M-9_j5osQd3xqZBFY-YGD0JhJvDTljvv/view?usp=sharing)
+
 # Section 6
 
 ## Continuous Training Configuration
@@ -261,6 +268,8 @@ At the end of these steps, the following secrets must be created in order to get
 The continuous training was set to be automaticaly by Github Actions in the `.github/workflows/continuous_training.yaml` file, and it will be done everytime the cloud deployment is triggered or/and every day at midnight, set by a cron job.<br>
 To configure email report please configure the `.github/workflows/continuous_training.yaml` file with your own email as is shown in the picture below:
 
+
+[Video Section 6](https://drive.google.com/file/d/1TD3LpNXcUTqBZyKhS64D6kqVlyRC_Jg2/view?usp=sharing)
 
 # Section 7
 
@@ -280,6 +289,9 @@ To check the status of the Github Actions, you can go to tha Actions tab in your
 This is because the first push the models do not exist in the remote bucket, but after `Continuous Training` excecution, models will be created and a new `Continuous Integration - Continuous Deployment` workflow will be launched. After this workflow finish all services will be loaded correctly.
 
 <p align=center><img src=_src/assets/email_git.png><p>
+
+
+[Video Section 7](https://drive.google.com/file/d/1HylTKDZLisRKOieEZ6Z_w4USoTlojOQu/view?usp=sharing)
 
 
 # Section 8
