@@ -275,6 +275,10 @@ To configure email report please configure the `.github/workflows/continuous_tra
 
 ## Cloud Deployment
 
+Before doing the deplyment, it is required to change the API link in the following file `frontend/main.py` for your link it is shown in the picture below:
+
+<p align=center><img src=_src/assets/api_link.png><p>
+
 Once the Cloud is configured, you can push the content of your local repository to the remote.
 The cloud deployment was set to be automaticaly by Github Actions in the `.github/workflows/ci_cd.yaml` file, and it will be done everytime a `git push` command is excecuted into the `main` branch.<br>
 The path for the frontend service can be found in the Cloud Run Service. For this deployment run the following [link](https://scoring-front-service-tq7rapbbua-uc.a.run.app/).<br>
@@ -293,6 +297,7 @@ This is because the first push the models do not exist in the remote bucket, but
 
 [Video Section 7](https://drive.google.com/file/d/1HylTKDZLisRKOieEZ6Z_w4USoTlojOQu/view?usp=sharing)
 
+>Note: The video of Section 7 does not show how to change the link for the API in the `frontend/main.py`.
 
 # Section 8
 
