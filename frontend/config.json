@@ -1,0 +1,4 @@
+{
+    "frontend-service-name": "scoring-front-service",
+    "api-service-name": "scoring-service"
+}

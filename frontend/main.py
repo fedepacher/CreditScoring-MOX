@@ -1,13 +1,19 @@
+import json
+import requests
 import streamlit as st
 import streamlit.components.v1 as components
-import requests
+from utils.get_url import get_service_url
 
 
 # Cloud Deployment
-URL = 'https://scoring-service-tq7rapbbua-uc.a.run.app'
+# URL = 'https://scoring-service-tq7rapbbua-uc.a.run.app'
 
 # Local Deployment
 # URL = 'http://api:8000'
+url = get_service_url()
+with open('./frontend/config.json', 'r', encoding='utf-8') as file:
+    services_file = json.load(file)
+api_url = url.replace(services_file['frontend-service-name'], services_file['api-service-name'])
 
 CLUSTER_A = 'Segmento de altos ingresos y baja rotación laboral'
 CLUSTER_B = 'Segmento de ingresos medios con estabilidad laboral'
@@ -41,7 +47,7 @@ variable = {
 
 
 def post():
-	base_url = f'{URL}/v1/prediction'
+	base_url = f'{api_url}/v1/prediction'
 	resp = requests.post(base_url, json=variable)
 	return resp.json()
 	
