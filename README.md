@@ -249,7 +249,7 @@ PROJECT_ID = mox-storage-project-test
 - Add SERVICE_NAME
 - Add SERVICE_NAME_FRONT
 
->Note: The service_name and service_name front can be found as the following picture shows
+>Note: The SERVICE_NAME and SERVICE_NAME_FRONT can be found as the following picture shows
 
 <p align=center><img src=_src/assets/service_name.png><p>
 
@@ -260,6 +260,29 @@ At the end of these steps, the following secrets must be created in order to get
 
 
 [Video Section 5](https://drive.google.com/file/d/1M-9_j5osQd3xqZBFY-YGD0JhJvDTljvv/view?usp=sharing)
+
+
+## Get URL from API service in the frontend
+
+In order to set the URL to achieve the API from de Frontend you should configure the `config.json` file which is located in `frontend` folder. The file content is the following:
+
+```
+{
+    "frontend-service-name": SERVICE_NAME_FRONT,
+    "api-service-name": SERVICE_NAME
+}
+```
+
+Where `SERVICE_NAME_FRONT` and `SERVICE_NAME` are the same that have been set in the previous sub-section.
+
+Example
+
+```
+{
+    "frontend-service-name": "scoring-front-service",
+    "api-service-name": "scoring-service"
+}
+```
 
 # Section 6
 
@@ -274,10 +297,6 @@ To configure email report please configure the `.github/workflows/continuous_tra
 # Section 7
 
 ## Cloud Deployment
-
-Before doing the deplyment, it is required to change the API link in the following file `frontend/main.py` for your link it is shown in the picture below:
-
-<p align=center><img src=_src/assets/api_link.png><p>
 
 Once the Cloud is configured, you can push the content of your local repository to the remote.
 The cloud deployment was set to be automaticaly by Github Actions in the `.github/workflows/ci_cd.yaml` file, and it will be done everytime a `git push` command is excecuted into the `main` branch.<br>
@@ -297,13 +316,12 @@ This is because the first push the models do not exist in the remote bucket, but
 
 [Video Section 7](https://drive.google.com/file/d/1HylTKDZLisRKOieEZ6Z_w4USoTlojOQu/view?usp=sharing)
 
->Note: The video of Section 7 does not show how to change the link for the API in the `frontend/main.py`.
 
 # Section 8
 
 ## Local Deployment
 
-For these steps the environment variable must be set as follow and models must be already in the store bucket:
+For these steps the environment variable must be set as follow and models must be already in the `model` folder and dataset in the `dataset` folder:
 
 ```
 export GOOGLE_APPLICATION_CREDENTIALS=$(realpath <credential-file>.json)
@@ -316,10 +334,6 @@ Check the environment variable:
 ```
 echo $GOOGLE_APPLICATION_CREDENTIALS
 ```
-
-Go to the `/frontend/main.py` file and uncomment the following line:
-
-<p align=center><img src=_src/assets/url.png><p>
 
 Run the docker compose file to deploy the project:
 
@@ -339,7 +353,7 @@ The API deployment can be found in the following browser path:
 localhost:8000
 ```
 
->Note: If the models are not stored in the bucket storage the deployment will fail. Store the models manually as teh following section explains.
+>Note: If the models and datasets are not in the respective forlder the deployment will fail. Follow the section 10 to create and store the models and datasets.
 
 
 # Section 9
@@ -422,6 +436,7 @@ This command will excecute the `dvc.yaml` and it will run the `notebooks/etl_pro
 Once those file are created can be storage and tracked with DVC following the steps in the ***DVC (Data Version Control) Initialization** section.
 
 
+# Section 11
 
 ## API deployment
 
