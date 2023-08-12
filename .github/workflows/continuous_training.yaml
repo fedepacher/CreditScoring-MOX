@@ -25,12 +25,14 @@ jobs:
       - name: Train model # Download model from GCP store
         env:
           SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          URL_DATABASE: ${{ secrets.URL_DATABASE }}
         run: |
           pip3 install virtualenv
           virtualenv venv
           source venv/bin/activate
           pip install -r src/requirements.txt
           export GOOGLE_APPLICATION_CREDENTIALS=$(python utilities/setter.py)
+          export URL_DATABASE=$URL_DATABASE
           dvc pull model/model_reg.pkl -r model-track
           dvc pull model/model_clf.pkl -r model-track
           dvc pull model/model_scaler.pkl -r model-track
@@ -59,7 +61,9 @@ jobs:
           source venv/bin/activate
           pip install -r src/requirements.txt
           export GOOGLE_APPLICATION_CREDENTIALS=$(python utilities/setter.py)
-          dvc repro -f
+          dvc repro -f prepare
+          echo "Preparation Completed"
+          dvc repro -f training
           echo "Training Completed"
           dvc add model/model_reg.pkl -r model-track --to-remote
           dvc add model/model_clf.pkl -r model-track --to-remote
