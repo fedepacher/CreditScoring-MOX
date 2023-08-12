@@ -262,6 +262,16 @@ At the end of these steps, the following secrets must be created in order to get
 [Video Section 5](https://drive.google.com/file/d/1M-9_j5osQd3xqZBFY-YGD0JhJvDTljvv/view?usp=sharing)
 
 
+## Configure Github with secrets for MongoDB access
+
+In order to preserve MOX privacy, it has created an environment variable with the MongoDB URL.<br>
+Create a secret with the following name:
+
+- URL_DATABASE
+
+Add the URL to get access to the dataset to create and train models.
+
+
 ## Get URL from API service in the frontend
 
 In order to set the URL to achieve the API from de Frontend you should configure the `config.json` file which is located in `frontend` folder. The file content is the following:
@@ -321,6 +331,31 @@ This is because the first push the models do not exist in the remote bucket, but
 
 ## Local Deployment
 
+For this deployment it is required python 3.10 version. 
+Check python version 
+
+```
+python3 --version
+```
+
+To install python 3.10 please follow the steps on the following [link](https://computingforgeeks.com/how-to-install-python-on-ubuntu-linux-system/?expand_article=1)
+
+Inside the project folder, create a virtual environment and install the requirements librariies:
+
+```
+pip3 install virtualenv
+virtualenv venv
+source venv/bin/activate
+python3 -m pip install -r src/requirements.txt
+```
+
+Set the environment variable to reach the database as follow:
+
+```
+export URL_DATABASE='<mongodb_url>'
+echo $URL_DATABASE
+```
+
 For these steps the environment variable must be set as follow and models must be already in the `model` folder and dataset in the `dataset` folder:
 
 ```
@@ -335,6 +370,22 @@ Check the environment variable:
 echo $GOOGLE_APPLICATION_CREDENTIALS
 ```
 
+If models `.pkl` do not exist in the model folder neither `data_prueba_limpia.csv` in the dataset folder run the following command to create then:
+
+```
+dvc repro -f prepare
+dvc repro -f training
+```
+
+If models and `data_prueba_limpia.csv` exists, run 
+
+```
+dvc repro -f
+```
+
+This will run the preparation and training methods.
+
+
 Run the docker compose file to deploy the project:
 
 ```
@@ -344,13 +395,13 @@ docker compose up -d --build
 The frontend deployment can be found in the following browser path:
 
 ```
-localhost:8080
+<IP ADDRESS>:8080
 ```
 
 The API deployment can be found in the following browser path:
 
 ```
-localhost:8000
+<IP ADDRESS>:8000
 ```
 
 >Note: If the models and datasets are not in the respective forlder the deployment will fail. Follow the section 10 to create and store the models and datasets.
