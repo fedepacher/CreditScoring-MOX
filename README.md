@@ -385,6 +385,7 @@ dvc repro -f
 
 This will run the preparation and training methods.
 
+>Note: In case dvc command is not recognized, it can be used `python -m dvc repro -f`. You should make sure that the python version running inside the file `dvc.yaml` is the 3.10, otherwise the command will thrown an exception. To check python version for dvc command, in the `dvc.yaml` file create an stage with `python --version` command or replace the existed stage and run the dvc command explained before.
 
 Run the docker compose file to deploy the project:
 
