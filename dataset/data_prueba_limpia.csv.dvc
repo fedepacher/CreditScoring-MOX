@@ -1,5 +1,5 @@
 outs:
-- md5: b7382ff432c6c2eccad64d9c472c2a78
-  size: 2402050
+- md5: 5a0fd5cf62e317942f2a205753ec77ea
+  size: 2401978
   hash: md5
   path: data_prueba_limpia.csv
