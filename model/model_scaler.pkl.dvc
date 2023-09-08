@@ -1,5 +1,5 @@
 outs:
-- md5: 9fcd406f97eba5602d6492ff3fccc94a
+- md5: f149738eade83d4dda815b7afc8f86ea
   size: 1295
   hash: md5
   path: model_scaler.pkl
