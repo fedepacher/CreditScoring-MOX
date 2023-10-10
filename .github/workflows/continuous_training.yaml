@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - main
-  schedule: # Scheduled trigger event, every 6hs
-    - cron: '0 0 * * *'
+  # schedule: # Scheduled trigger event, every 6hs
+  #   - cron: '0 0 * * *'
   workflow_dispatch: # Manual trigger event
     inputs:
       reason:
